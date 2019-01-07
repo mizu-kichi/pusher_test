@@ -94,5 +94,24 @@
                 </div>
             </div>
         </div>
+
+        <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.9/push.js"></script>
+        <script>
+
+            // Enable pusher logging - don't include this in production
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('{{ config('broadcasting.connections.pusher.key') }}', {
+                cluster: '{{ config('broadcasting.connections.pusher.options.cluster') }}',
+                forceTLS: '{{ config('broadcasting.connections.pusher.options.encrypted') }}'
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+                //alert(JSON.stringify(data));
+                Push.create(data.message);// デスクトップ通知にするためにpush.jsを利用
+            });
+        </script>
     </body>
 </html>

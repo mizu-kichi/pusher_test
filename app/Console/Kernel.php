@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        // 極力PUSHERのサンプルコードのままver
+        Commands\TestPusher1::class,
     ];
 
     /**
